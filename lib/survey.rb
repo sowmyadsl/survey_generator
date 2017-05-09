@@ -1,7 +1,7 @@
 class Survey < ActiveRecord::Base
-  has_many :questions
+  has_many :question
   before_save :capitalize_title
-
+  validates(:survey_title, :presence => true)
 private
 
   def capitalize_title
