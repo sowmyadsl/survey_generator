@@ -48,6 +48,23 @@ patch '/surveys/:id' do
   id = params.fetch('id').to_i()
   @survey = Survey.find(id)
   @survey.update({:survey_title => survey_title})
-  @surveys = Survey.all
   erb(:survey)
+end
+
+delete '/surveys/:id' do
+  @survey = Survey.find(params.fetch('id').to_i())
+  @survey.delete
+  @surveys = Survey.all
+  erb(:index)
+end
+
+get '/questions/:id/edit' do
+  @question = Question.find(params['id'].to_i)
+  erb :questions_edit
+end
+
+patch '/questions/:id' do
+  @question = Question.find(params['id'])
+  @question.update({:question => params['question']})
+  erb :questions_edit
 end

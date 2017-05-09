@@ -1,0 +1,17 @@
+<h2><%= @question.question %></h2>
+<hr>
+<h2>Update Question</h2>
+<form action ="/questions/<%= @question.id%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="question">Enter an updated question:</label>
+  <input type="text" name="question">
+  <button type ="submit">Change question</button>
+</form>
+
+
+<form action="/questions/<%= @question.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Remove Question</button>
+</form>
+
+<a href='/'> back to home page </a>
