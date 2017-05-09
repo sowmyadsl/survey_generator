@@ -1,4 +1,5 @@
 require 'sinatra'
+require 'pry-byebug'
 require 'sinatra/reloader'
 require 'sinatra/activerecord'
 require './lib/survey'
@@ -15,5 +16,22 @@ post('/surveys') do
   survey_title = params.fetch("survey_title")
   survey = Survey.create({:survey_title => survey_title})
   survey.save
-  redirect '/'
+  @surveys = Survey.all
+  # redirect '/'
+  erb :index
+end
+
+get("/surveys/:id") do
+@survey = Survey.find(params.fetch('id').to_i)
+@questions = Question.all
+ erb :survey
+end
+
+post '/questions' do
+  survey_id = params.fetch('survey_id').to_i()
+  @survey = Survey.find(survey_id)
+  question = Question.create({:question => params['question'], :survey_id => survey_id})
+  @questions = Question.all
+  # redirect '/surveys/' + survey_id.to_s
+  erb :survey
 end
