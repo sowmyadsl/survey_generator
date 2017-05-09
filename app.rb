@@ -70,9 +70,8 @@ patch '/questions/:id' do
 end
 
 delete '/questions/:id' do
-  
   @question = Question.find(params.fetch('id').to_i())
+  survey_id = @question.survey_id
   @question.delete
-  @surveys = Survey.all
-  erb :index
+  redirect "/surveys/#{survey_id}"
 end
