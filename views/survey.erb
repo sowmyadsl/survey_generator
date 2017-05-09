@@ -21,4 +21,18 @@
   <button type="submit">Add Question</button>
 </form>
 
+<h2> Update Survey </h2>
+<form action ="/surveys/<%= @survey.id%>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <label for="survey_title">Enter the new survey title:</label>
+  <input type="text" name="survey_title">
+  <button type ="submit">Change survey title</button>
+</form>
+
+
+<form action="/surveys/<%= @survey.id %>" method="post">
+  <input type="hidden" name="_method" value="delete">
+  <button type="submit">Remove Survey</button>
+</form>
+
 <a href='/'> back to home page </a>

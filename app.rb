@@ -20,14 +20,14 @@ post('/surveys') do
     erb :index
   else
     erb :errors
-  # redirect '/'
+    # redirect '/'
   end
 end
 
 get("/surveys/:id") do
-@survey = Survey.find(params.fetch('id').to_i)
-@questions = Question.all
- erb :survey
+  @survey = Survey.find(params.fetch('id').to_i)
+  @questions = Question.all
+  erb :survey
 end
 
 post '/questions' do
@@ -41,4 +41,13 @@ post '/questions' do
   else
     erb :errors
   end
+end
+
+patch '/surveys/:id' do
+  survey_title = params.fetch("survey_title")
+  id = params.fetch('id').to_i()
+  @survey = Survey.find(id)
+  @survey.update({:survey_title => survey_title})
+  @surveys = Survey.all
+  erb(:survey)
 end
