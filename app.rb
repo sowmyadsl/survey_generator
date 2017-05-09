@@ -68,3 +68,11 @@ patch '/questions/:id' do
   @question.update({:question => params['question']})
   erb :questions_edit
 end
+
+delete '/questions/:id' do
+  
+  @question = Question.find(params.fetch('id').to_i())
+  @question.delete
+  @surveys = Survey.all
+  erb :index
+end
