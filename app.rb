@@ -14,11 +14,14 @@ end
 
 post('/surveys') do
   survey_title = params.fetch("survey_title")
-  survey = Survey.create({:survey_title => survey_title})
-  survey.save
+  @survey = Survey.create({:survey_title => survey_title})
   @surveys = Survey.all
+  if @survey.save
+    erb :index
+  else
+    erb :errors
   # redirect '/'
-  erb :index
+  end
 end
 
 get("/surveys/:id") do
@@ -30,8 +33,12 @@ end
 post '/questions' do
   survey_id = params.fetch('survey_id').to_i()
   @survey = Survey.find(survey_id)
-  question = Question.create({:question => params['question'], :survey_id => survey_id})
+  @question = Question.create({:question => params['question'], :survey_id => survey_id})
   @questions = Question.all
-  # redirect '/surveys/' + survey_id.to_s
-  erb :survey
+  if @question.save
+    #   # redirect '/surveys/' + survey_id.to_s
+    erb :survey
+  else
+    erb :errors
+  end
 end
